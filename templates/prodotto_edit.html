@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block titolo %}Modifica prodotti{% endblock titolo %}
+
+{% load crispy_forms_tags %}
+
+{% block contenuto %}
+<div class= "container">
+  <div class = "row my-3">
+    <div = "col-12">
+      
+
+      <h1>Modifica</h1>
+      <form action="" enctype="multipart/form-data" method="post">{% csrf_token %}
+        {{ form|crispy }}
+        <!-- {{ form }} -->
+        <button class="btn btn-info ml-2" type="submit">Aggiorna</button>
+        <!--<button type="submit">Aggiorna</button>-->
+      </form>
+
+    </div>      
+  </div>
+</div>    
+{% endblock contenuto %}

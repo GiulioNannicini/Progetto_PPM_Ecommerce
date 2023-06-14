@@ -1,0 +1,49 @@
+
+
+
+/* base footer */
+
+@media screen and (max-width: 720px) {
+    
+    #footer_link_social{
+        margin-top: 20px !important;
+        padding-right: 28% !important;
+    }
+
+    #footer_icona{
+        padding-left: 15% !important;
+    }
+
+
+  }
+
+
+
+/* home */
+
+@media screen and (max-width: 980px)  {
+    
+    #home_contenitore_immagineCategorie{
+        width: 20rem !important;
+        height: 20rem !important;
+        margin-left: 20px;
+    }
+
+    #home_immaginiCategorie{
+        max-width: 20rem !important;
+        min-width: 20rem !important;
+        min-height: 20rem !important;
+        max-height: 20rem !important;
+    }
+
+}
+
+
+/* carrello */
+@media screen and (max-width: 720px){
+
+    #immagine_carrello, #immagine_dettaglioOrdine{
+        display: none;
+    }
+    
+}

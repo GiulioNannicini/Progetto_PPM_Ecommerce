@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block titolo %}Dettaglio prodotti{% endblock titolo %}
+
+{% block contenuto %}
+
+<div class="container mx-auto my-3">
+    <div class="header">
+        <div class="row r1">
+            <div class="col-md-5 abc">
+                <h1 class = "">{{ object.nome_prodotto}}</h1>
+            </div>
+            <div class="col-md-7">
+                <h3 class = "text-end"> Categoria: {{ object.categoria }} </h3>
+            </div>    
+            
+        </div>
+    </div>
+    <div class="container-body">
+        <div class="row">
+            <div class="col-md-6 card border border-light" style ="max-height: 470px;">
+                <img src="{{prodotto.immagine.url}}" width="100%" height="100%"> 
+            </div>
+
+            <div class="col-md-6 p-0 klo border border-light card" style ="max-height: 470px;">
+                
+                <p style="min-height:240px;" class = "mx-3 my-3">{{ object.descrizione }}</p>
+                <h5 class= "text-end mx-5 fw-bold fs-3 my-5"> € {{ object.prezzo }} </h5>
+                <div class = "row"> 
+                    <div class="col-6 text-center ">
+                        <a href = "{% url 'prodotto_list' %}" class="text-decoration-none text-dark "><i class="bi bi-arrow-left fs-5"> Torna a tutti i prodotti</i></a>
+                    </div> 
+
+
+                    <div class="col-6 mb-5 text-end">
+                        <a href = "{% url 'aggiungi_prodotti' prodotto.pk %}" class="btn btn-secondary mx-4" style="width:140px;">Metti nel <i class="bi bi-cart4 fs-5 "></i></a>
+                    </div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    {% if user.is_authenticated %}
+        {% if user.is_staff %}
+            <div class="row my-4">
+
+                 <div class="col-4">
+                     <a href = "{% url 'prodotto_edit' prodotto.pk %}" class=" btn btn-secondary text-decoration-none "> Modifica </a>
+                 </div>
+
+                <div class="col-4">
+                    <a href = "{% url 'prodotto_delete' prodotto.pk %}" class="btn btn-secondary text-decoration-none"> Cancella </a>
+                </div>
+
+            </div>
+        {% endif %}
+    {% endif %}
+
+</div>
+
+
+
+
+
+
+{% endblock contenuto %}

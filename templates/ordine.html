@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block titolo %} Ordini {% endblock titolo %}
+
+{% block contenuto %}
+
+<div class = "container">
+    <div class="row">
+
+        <div class = "col-12">
+
+            <section class="h-100">
+                <div class="container h-100 py-5">
+                  <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 text-center">
+              
+                      <div class="mb-4">
+                        <h2 class="text-black">I miei ordini</h2>
+                        
+                      </div>
+                      {% for ordini in object_list %}
+                      <div class="card rounded-3 mb-4">
+                        <div class="card-body p-4">
+                          <div class="row d-flex justify-content-between align-items-center">
+
+                              <div class="col-md-12 col-lg-4 col-xl-4" >
+                                  <img src="{% static 'image/logo_zoom.png' %}" height="150px" width="150px">
+                              </div>
+
+                              <div class="col-md-12 col-lg-4 col-xl-4">
+                                <h5>Ordine di {{ ordini.data_ordine }}</h5>
+                                  <h5>Stato dell'ordine: {{ ordini.stato_ordine }} </h5>
+                              </div>
+
+                            <div class="col-md-12 col-lg-3 col-xl-3">
+
+                              <a href="{{ ordini.get_absolute_url }}" type="button" class="btn btn-success btn-block btn-lg">Vai al dettaglio dell'ordine</a>
+                              {% if ordini.stato_ordine == "inserito" %}
+                              
+                                <a href="{% url 'paga_ordine' ordini.pk %}" type="button" class="btn btn-primary btn-block btn-lg">Paga</a>
+
+                              {% endif %}
+                            </div>
+                            
+                           
+                          </div>
+                        </div>
+                      </div>
+                      {% endfor %}
+                      
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+
+        </div>    
+
+    </div>
+</div>    
+
+{% endblock contenuto %}

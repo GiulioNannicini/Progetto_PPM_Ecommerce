@@ -1,0 +1,138 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="it">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="Ecommerce progetto PPM">
+  	<meta name="keywords" content="ecommerce, vendita...">
+  	<meta name="author" content="Giulio Nannicini">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	{% load bootstrap5 %}
+	{% bootstrap_css %}
+	{% bootstrap_javascript %}
+
+	<link href="{% static 'css/main.css' %}" rel="stylesheet" type="text/css"/>
+	<script src="{% static 'js/main.js' %}" type="text/javascript"></script>
+
+   
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css" rel="stylesheet"/>
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="icon" type="image/x-icon" href="{% static '/image/logo_zoom.png' %}">
+
+	<title>{% block titolo %}My Ecommerce{% endblock titolo %}</title>
+</head>
+<body>
+
+	<header data-bs-theme="dark">
+		<nav class="navbar navbar-expand-lg bg-dark fixed-top">
+		  <div class="container-fluid">
+			<a href="{% url "home" %}" class=" d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+          		<img src="{% static '/image/logo_zoom.png' %}" alt="" width="95" height="55">
+        	</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+			  <span class="bi bi-list text-white fs-1"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarText">
+			  <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-3">
+				<li class="nav-item">
+				  <a href="{% url "home" %}" class="nav-link px-2 text-white h5 pulsantiDiNavigazione">Home</a>
+				</li>
+				<li class="nav-item">
+				  <a href="{% url "prodotto_list" %}" class="nav-link px-2 text-white h5 pulsantiDiNavigazione">Prodotti</a>
+				</li>
+				
+			  </ul>
+			  <span class="navbar-text">
+
+				{% if user.is_authenticated %}
+
+				<div class="dropdown text-end mx-5">
+					<div class ="d-inline-flex">
+						<a type="button" role="button"href = "{% url 'carrello' %}" class = "btn btn-outline-secondary mx-5">
+
+							<span class = "px-1">{{totale_elementi_carrello}}</span>
+
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+								class="bi bi-cart3 " viewBox="0 0 16 16">
+								<path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+							</svg>
+							Carrello
+
+						</a>
+
+
+						<a href="#" class="d-block link-dark text-white text-decoration-none " id="dropdownUser1"
+					  data-bs-toggle="dropdown" aria-expanded="false">
+							<i class="bi bi-person-fill icon-lg"> {{ user.username }} </i>
+						</a>
+						<ul class="dropdown-menu text-small dropdown-menu-end" aria-labelledby="dropdownUser1">
+							<li><a class="dropdown-item bg-dark text-white" href="{% url 'lista_ordini' %}">Lista ordini</a></li>
+							<li><a class="dropdown-item bg-dark text-white" href="{% url 'password_change' %}">
+								Change password</a></li>
+							<li><a class="dropdown-item bg-dark text-white" href="{% url 'logout' %}">Log Out</a></li>
+						</ul>
+
+
+					</div>
+
+				  </div>
+
+				{% else %}
+
+				<button type="button" class="btn btn-dark me-2">
+					<a href="{% url 'login' %}" class=" px-2 text-white h6">
+						Login
+					</a>
+
+				</button>
+				<button type="button" class="btn btn-dark">
+					<a href="{% url 'signup' %}" class=" px-2 text-white h6">
+						Sign-up
+					</a>
+
+				</button>
+
+				{% endif %}
+
+
+
+
+			  </span>
+			</div>
+		  </div>
+		</nav>
+	</header>
+<div class="bg-dark" style="height:80px;"> </div>
+
+    {% block contenuto %}{% endblock contenuto %}
+
+	<div class="bg-dark" style="height:10px"></div>
+	<div class="container-fluid bg-dark ">
+		<footer class=" row d-flex flex-wrap justify-content-between align-items-center py-3">
+		  <div class="col-md-4 d-flex align-items-center " id="footer_icona">
+			<a href="/" class="mb-3 me-2 mb-md-0 text-white text-decoration-none text-center lh-1">
+				<img src="{% static '/image/logo_zoom.png' %}" alt="Bootstrap" width="80" height="45">
+			</a>
+			<span class="mb-3 mb-md-0 text-white">© 2023 Giulio Nannicini</span>
+		  </div>
+	  
+		  <div class = "col-md-4 justify-content-center d-flex"> 
+				<a href="{% url "privacy" %}" class="text-decoration-none">
+					<h5 class="text-white h5">Privacy</h5>
+				</a>
+		  </div>		
+
+		  <ul class="nav col-md-3 list-unstyled d-flex justify-content-end mx-1" id="footer_link_social">
+			<li class="ms-3"><a href="/home"><svg class="bi" width="32" height="32"><i class="bi bi-instagram text-white"></i></svg></a></li>
+			<li class="ms-3"><a href="/home"><svg class="bi" width="32" height="32"><i class="bi bi-facebook text-white"></i></svg></a></li>
+			<li class="ms-3"><a href="/home"><svg class="bi" width="32" height="32"></use><i class="bi bi-whatsapp text-white"></i></svg></a></li>
+			<li class="ms-3"><a href="/home"><svg class="bi" width="32" height="32"><i class="bi bi-youtube text-white"></i></svg></a></li>
+		  </ul>
+		</footer>
+	  </div>
+
+</body>
+</html>

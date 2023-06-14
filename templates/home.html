@@ -1,0 +1,71 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block titolo %} Home {% endblock titolo %}
+
+
+{% block contenuto %}
+
+
+
+
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col-12  bg-dark">
+
+      <div class="bg-image ripple" data-mdb-ripple-color="light">
+        <img src="{% static 'image/sfondo.jpg' %}" class="w-100" style="max-height: 800px" />
+
+        <div class="mask"  style="background-color: hsla(0, 0%, 0%, 0.4)">
+            <div class="d-flex justify-content-center align-items-center h-100">
+              <h1 class="display-1 text-white px-3">MuscleCommerce <br> <p class="lead fw-normal py-4">Il tuo marketplace ideale per l'acquisto di attrezzatura sportiva, alimentazione, <br> integratori per lo sport, abbigliamento e molto altro</p> </h1>
+            </div>
+
+        </div>
+
+      </div>
+
+
+
+    </div>
+
+  </div>
+
+
+
+
+
+  <div class="row my-5 ">
+
+    {% for categoria in cate %}
+    <div class=" col-md-6 col-lg-6 col-xl-6 col-xxl-4 my-4">
+
+      <div class="card text-bg-dark " style="width:29rem; height:28rem;" id="home_contenitore_immagineCategorie">
+        <a href="{% url 'categoria_detail' categoria.pk %}">
+          <img src="{{ categoria.immagine_categoria.url }}" class="card-img view" alt="..." style=" min-width: 29rem; min-height:28rem; max-width: 29rem; max-height:28rem; " id="home_immaginiCategorie">
+          <div class="mask align-items-center">
+            <div class="d-flex justify-content-center align-items-center h-100">
+              <h5 class="card-title text-light display-6 fw-bold">{{ categoria.nome_categoria }}</h5>
+        
+            </div> 
+          </div>  
+        </a>   
+         
+      </div>
+
+    </div>
+    
+    {% endfor %}
+  </div>  
+
+
+
+
+
+</div>
+
+
+
+
+{% endblock contenuto %}

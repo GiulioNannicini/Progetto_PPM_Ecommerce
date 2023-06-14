@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block titolo %} Dettaglio ordine {% endblock titolo %}
+
+{% block contenuto %}
+
+<div class = "container">
+
+    <div class="row">
+        <div class="col-12 text-center">
+            
+              
+                <div class="mb-4">
+                  <h2 class="text-black">Dettaglio Ordine</h2>
+                  
+                </div>
+        </div>    
+    </div>    
+
+    <div class="row">
+
+        <div class = "col-lg-8 col-md-12">
+
+            <section class="h-100">
+                <div class="container h-100 py-5">
+                  <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 text-center">
+              
+                      {% for elementi_ordine in object_list %}
+
+                      <div class="card rounded-3 mb-4">
+                        <div class="card-body p-4">
+                          <div class="row d-flex justify-content-between align-items-center">
+
+
+                              <div class="col-md-6 col-lg-6 col-xl-6">
+                                  <img
+                                src="{{ elementi_ordine.id_prodotto.immagine.url }}"
+                                class="img-fluid rounded-3" alt="descrizione" style="height: 220px;">
+                              </div>
+
+                              <div class="col-md-6 col-lg-6 col-xl-6 text-center">
+                                  <h4 class="lead fw-normal mb-2">{{ elementi_ordine.id_prodotto.nome_prodotto }}</h4>
+                                  <h6> Quantità ordinata {{ elementi_ordine.quantita_del_prodotto }} al prezzo di {{ elementi_ordine.prezzo_del_prodotto }} </h6>
+                              </div>
+
+                    
+                          </div>
+                        </div>
+                      </div>
+                      {% endfor %}
+                      
+                      <!--
+                      <p>{{totale_prezzo_ordine}}</p>
+                      <p>{{totale_elementi_ordine}}</p>
+                      -->
+                    </div>
+
+
+
+                  </div>
+                </div>
+            </section>
+
+
+        </div>    
+
+
+
+        
+
+        <div class="col-lg-4 col-md-12 my-5">
+            <div class="card">
+              <div class="card-body text-center">
+                <h3>Spesa totale ordine: {{totale_prezzo_ordine}}</h3>
+                
+                <h5>Totale articoli nell'ordine: {{totale_elementi_ordine}} </h5>
+                <h6>Il tuo stato di questo ordine è: {{ object.stato_ordine }}</h6>
+                {% if object.stato_ordine == "inserito" %}
+                  <a href="{% url 'paga_ordine' object.pk %}" type="button" class="btn btn-primary btn-block btn-lg">Paga</a>
+                {% endif %}
+              </div>
+            </div>
+        </div>
+
+          
+        
+
+        <div class = "row mb-3 my-3">
+                <div class="col-12 text-start ">
+                    <a href = "{% url 'lista_ordini' %}" class="text-decoration-none text-dark "><i class="bi bi-arrow-left fs-5"> Torna a tutti gli ordini</i></a>
+                </div>
+        </div>
+
+    </div>
+</div>    
+
+{% endblock contenuto %}

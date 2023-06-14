@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block titolo %}Nuova Categoria{% endblock titolo %}
+
+{% load crispy_forms_tags %}
+
+{% block contenuto %}
+
+<div class= "container">
+  <div class = "row">
+    <div = "col-12">
+      
+      <h1>Nuova Categoria</h1>
+      <form action="" enctype="multipart/form-data" method="post">{% csrf_token %}
+        {{ form|crispy }}
+        <div class="row">
+          <div class="col-6">
+            <button class="btn btn-success ml-2" type="submit">Salva</button>
+          </div>
+          <div class="col-6 text-end">
+            <a href="{% url 'prodotto_new'%}" class="btn btn-secondary my-4" >Nuovo Prodotto</a>
+          </div>
+        </div>  
+      </form>
+
+    </div>
+  </div>
+</div>      
+{% endblock contenuto %}

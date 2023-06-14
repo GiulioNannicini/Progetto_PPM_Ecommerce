@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Prodotti{% endblock title %}
+
+{% block contenuto %}
+        
+        <div class="container-fluid">
+
+            <div class="row my-2">
+
+                <div class="col-xl-3 col-lg-12">
+
+                    <!-- pulsante nuovo articolo -->
+                    <div class = "row my-3">
+                        {% if user.is_authenticated %}
+                            {% if user.is_staff %}
+                                <div class="col-6 ">
+                                    <a href="{% url 'categoria_new' %}" class="btn btn-secondary my-4" >Nuova Categoria</a>
+                                </div>    
+                                <div class="col-6 ">
+                                    <a href="{% url 'prodotto_new'%}" class="btn btn-secondary my-4" >Nuovo Prodotto</a>
+                                </div> 
+                            {% endif %}  
+                        {% endif %}      
+                            
+                      
+                        
+                        <div class = "col-12 my-5">
+                            <div class="list-group">
+                                <a href="{% url 'prodotto_list' %}" class="list-group-item list-group-item-action " aria-current="true"> Tutti i prodotti </a>
+                                {% for c in categorie %}
+                                <a href="{% url 'categoria_detail' c.pk %}" class="list-group-item list-group-item-action " aria-current="true">
+                                  {{ c.nome_categoria }}
+                                </a>
+
+                                {% endfor %}
+                              </div>
+                        </div>    
+
+                    </div>    
+
+                    <!-- sezione laterale di filtro -->
+
+
+
+
+                </div>
+
+
+
+                <div class="col-xl-8 col-md-12">
+
+                    <!-- articoli -->
+
+
+                    <section class="pt-5 pb-5 shadow-sm">
+                      
+                        <div class="row border-bottom ">
+                            <div class="col-12 ">
+                                <h3 class="text-uppercase text-center mb-5"> 
+                                    {% if object.nome_categoria %}
+                                    
+                                        Categoria: {{object.nome_categoria}}
+                                    {% else %}
+
+                                        Lista Prodotti
+                                    {% endif %}
+                                </h3>
+
+                                    
+                            </div>
+                        </div>
+                      
+                        <div class="row">
+
+                            <!-- inizio card -->
+                            {% for prodotto in object_list %}
+                            <div class="col-xl-4 col-lg-4 col-md-6 mb-3 d-flex align-items-stretch">
+                                
+                                <div class="card mx-3 my-3" style="width: 18rem;">
+                                
+                                    
+                                        
+                                        <div class="view ">
+                                            <a href="{{ prodotto.get_absolute_url }}" class="text-decoration-none">
+                                                <img src="{{ prodotto.immagine.url }}" class="card-img-top" alt="descrizione" style="max-height: 225px; min-height: 224px;">
+
+                                                <div class=" mx-2 my-1 text-end">
+                                                    <i class="bi bi-info-circle"></i> 
+                                                </div> 
+                                            </a>    
+                                        </div>
+                                        
+                                    <div class="card-body flex-column border-bottom">
+                                        <h5 class = "card-title pt-3 text-center text-dark">{{ prodotto.nome_prodotto}}</h5>
+                                    </div>
+                                    
+                      
+                                    <div class="card-body flex-column border-top">
+                                        <div class = "row">
+                                            <div class = "col-7">
+                                                <p class = "card-title text-dark my-1 fs-5 fw-bold"> € {{ prodotto.prezzo }}</p>
+                                            </div>
+                                            <div class = "col-5 text-end mr-1">
+                                                <a href="{% url 'aggiungi_prodotti' prodotto.pk %}" class="text-decoration-none btn btn-secondary"><i class="bi bi-cart4"></i></a>
+                                            </div>
+                      
+                                        </div>
+                                    </div>
+                      
+                                </div>
+                               
+                            </div>
+                            {% endfor %}
+                            <!-- fine di una card -->
+
+
+
+
+                           
+
+
+
+
+
+
+                        <!-- qui si chiude -->    
+                        </div>
+                       
+                      
+                                            
+             
+                      </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                      <div class="my-4">
+                        <a onclick="topFunction()" class="h5 text-decoration-none text-dark" href=""> <i class="bi bi-arrow-up fs-3"></i> Torna in alto</a>
+                      </div>
+                </div>
+
+                 
+                
+            </div>
+
+        </div>
+
+
+
+
+
+
+{% endblock contenuto %}        

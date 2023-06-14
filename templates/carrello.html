@@ -1,0 +1,92 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block titolo %} Carrello {% endblock titolo %}
+
+{% block contenuto %}
+
+<div class = "container">
+    <div class="row">
+
+        <div class = "col-12">
+
+            <section class="h-100">
+                <div class="container h-100 py-5">
+                  <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 text-center">
+              
+                      <div class="mb-4">
+                        <h2 class="text-black">Carrello</h2>
+                        
+                      </div>
+                      {% for elementi_carrello in object_list %}
+                      <div class="card rounded-3 mb-4">
+                        <div class="card-body p-4">
+                          <div class="row d-flex justify-content-between align-items-center">
+                            <div class="col-md-2 col-lg-2 col-xl-2">
+                              <img src="{{ elementi_carrello.id_prodotto.immagine.url }}" class="img-fluid rounded-3" alt="descrizione">
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-xl-3">
+                              <p class="lead fw-normal mb-2">{{ elementi_carrello.id_prodotto.nome_prodotto }}</p>
+                              <p>{{ elementi_carrello.id_prodotto.categoria }}</p>
+                              
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                              <a class="btn btn-link px-2" href="{% url 'diminuisci_quantita' elementi_carrello.pk %}" >
+                                <i class="bi bi-dash-lg"></i>
+                            </a>
+              
+                              <input id="form1" min="0" name="quantity" value="{{ elementi_carrello.quantita }}" type="number"
+                                class="form-control form-control-sm" disabled />
+              
+                              <a class="btn btn-link px-2" href="{% url 'aumenta_quantita' elementi_carrello.pk %}">
+                                <i class="bi bi-plus-lg"></i>
+                            </a>
+                            </div>
+                            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                              <h5 class="mb-0">{{elementi_carrello.id_prodotto.prezzo}}</h5>
+                            </div>
+                            <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                              <a href="{% url 'elimina_prodotti' elementi_carrello.pk %}" class="text-danger"><i class="bi bi-trash fs-3"></i></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      {% endfor %}
+                      <div class="row">
+
+                        <div class="col-md-12 col-lg-6">
+                           <div class="card">
+                              <div class="card-body" id ="immagine_carrello">
+                                <img src="{% static '/image/logo_zoom.png' %}" height="180px">
+                              </div>
+                           </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12">
+                          <div class="card">
+                            <div class="card-body">
+                              <h3>Spesa totale</h3>
+                              <p class="fs-3 fw-bold">{{totale_prezzo_carrello}}</p>
+                              <h5>Totale articoli nel carrello: {{totale_elementi_carrello}} </h5>
+                              <a href="{% url 'crea_ordine' %}" type="button" class="btn btn-warning btn-block btn-lg">Ordina</a>
+                            </div>
+                          </div>
+                        </div>
+
+                        
+                      </div>
+                      
+
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+
+        </div>    
+
+    </div>
+</div>    
+
+{% endblock contenuto %}
