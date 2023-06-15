@@ -25,9 +25,17 @@
                             {% endif %}  
                         {% endif %}      
                             
-                      
+                        <div class = "col-12 text-end my-3">
+                            <form class="input-group rounded" action = "{% url 'prodotto_list' %}">
+                                <input type="text" name="query"  class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                                <span class="input-group-text border-0" id="search-addon">
+                                  <i class="fas fa-search"></i>
+                                </span>
+                            </form>
+
+                        </div>
                         
-                        <div class = "col-12 my-5">
+                        <div class = "col-12 my-2">
                             <div class="list-group">
                                 <a href="{% url 'prodotto_list' %}" class="list-group-item list-group-item-action " aria-current="true"> Tutti i prodotti </a>
                                 {% for c in categorie %}

@@ -17,13 +17,22 @@ class ProdottoListView(ListView):
     model = Prodotto
     template_name = "prodotto_list.html"
 
+    def get_queryset(self):  # new
+        query = self.request.GET.get("query")
+        if query is None:
+            query = ''
+        object_list = Prodotto.objects.filter(
+            Q(nome_prodotto__icontains=query) | Q(descrizione__icontains=query)
+        )
+        return object_list
+
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
         if self.request.user.is_authenticated:
             elementi_carrello_utente = self.request.user.elementi_carrello.all()
             context["totale_prezzo_carrello"] = sum([elemento.quantita * elemento.id_prodotto.prezzo for elemento in elementi_carrello_utente])
             context["totale_elementi_carrello"] = sum([elemento.quantita for elemento in elementi_carrello_utente])
-        
+
         return context
      
 
@@ -70,7 +79,6 @@ class ProdottoCreateView(CreateView):  # new
         "prezzo",
         
     ]
-    #success_url = '/media/immagini_prodotti/'
     success_url = reverse_lazy("prodotto_list")
    
 class CategoriaCreateView(CreateView):  # new
@@ -87,7 +95,7 @@ class CategoriaCreateView(CreateView):  # new
 class CategoriaDetailView(DetailView):  # new
     model = Categoria
     template_name = "prodotto_list.html"
-    
+
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["object_list"] = self.get_object().prodotti.all()
